@@ -7,19 +7,44 @@ import {
     ApolloServerPluginLandingPageGraphQLPlayground
 } from 'apollo-server-core';
 
+import { users, quotes } from './fakedb.js';
+
 const typeDefs = gql`
     type Query {
-        greet: String
+        users: [User]
+        user(id: ID!): User
+        quotes: [Quote]
+        iquote(by: ID!): [Quote]
+    }
+
+    type User {
+        id: ID!
+        firstName: String
+        lastName: String
+        email: String
+        password: String
+        quotes: [Quote]
+    }
+
+    type Quote {
+        name: String
+        by: ID
     }
 `
 
 const resolvers = {
     Query: {
-        greet: () => 'Hello world'
+        users: () => users,
+        user: (_, { id }) => users.find(user => user.id == id),
+        quotes: () => quotes,
+        iquote: (_, { by }) => quotes.filter(quote => quote.by == by) 
+    },
+    User: {
+        quotes: (user) => quotes.filter(quote => quote.by == user.id)
     }
 }
 
-const server =  new ApolloServer({
+const server = new ApolloServer({
     typeDefs,
     resolvers,
     plugins: [
