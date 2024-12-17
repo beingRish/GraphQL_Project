@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 export default function CreateQuote() {
     const [quote, setQuote] = useState("")
@@ -12,7 +12,7 @@ export default function CreateQuote() {
                 <input
                     type='text'
                     value={quote}
-                    onChange={e=>setQuote(e.target.value)}
+                    onChange={e => setQuote(e.target.value)}
                     placeholder='Write your quote here'
                 />
                 <button className='btn green'>Create</button>

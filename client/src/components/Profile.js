@@ -4,7 +4,7 @@ export default function Profile() {
   return (
     <div className='container my-container'>
       <div className='center-align'>
-        <img className='circle' style={{border:"2px solid", marginTop:"10px"}} src='https://robohash.org/ram.png?size=200x200' alt='pic' />
+        <img className='circle' style={{ border: "2px solid", marginTop: "10px" }} src='https://robohash.org/ram.png?size=200x200' alt='pic' />
         <h5>Rishabh Singh</h5>
         <h5>Email - being@rish.com</h5>
       </div>

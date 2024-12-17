@@ -1,18 +1,13 @@
+import { useRoutes } from 'react-router-dom';
 import './App.css';
-import CreateQuote from './components/CreateQuote';
-import Home from './components/Home';
-import Login from './components/Login'
-import Profile from './components/Profile';
-import Signup from './components/Signup';
-
+import NavBar from './components/NavBar';
+import { routes } from './routes'
 function App() {
+  const element = useRoutes(routes)
   return (
     <div>
-      {/* <Login /> */}
-      {/* <Signup /> */}
-      {/* <Profile /> */}
-      {/* <CreateQuote /> */}
-      <Home />
+      <NavBar />
+      {element}
     </div>
   );
 }
