@@ -9,7 +9,7 @@ export default function Home() {
   if(error) {
     console.log(error.message);
   }
-  if(data.quotes.length == 0) {
+  if(data.quotes.length === 0) {
     return <h2>No Quotes available</h2>
   }
   return (

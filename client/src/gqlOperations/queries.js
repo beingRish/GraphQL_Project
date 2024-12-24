@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client'
-import { useQuery } from '@apollo/client'
 
 export const GET_ALL_QUOTES = gql`
 query getAllQuotes {
@@ -8,6 +7,19 @@ query getAllQuotes {
   	by {
     	_id
       firstName
+    }
+  }
+}
+`
+
+export const GET_MY_PROFILE = gql`
+query getMyProfile{
+  user:myprofile{
+    firstName
+    lastName
+    email
+    quotes{
+      name
     }
   }
 }

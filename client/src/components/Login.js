@@ -6,7 +6,7 @@ import { LOGIN_USER } from '../gqlOperations/mutations'
 export default function Login() {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({})
-  const [signinUser, {error, loading, data}] = useMutation(LOGIN_USER, {
+  const [signinUser, {error, loading}] = useMutation(LOGIN_USER, {
     onCompleted(data) {
       localStorage.setItem("token", data.user.token)
       navigate('/')
