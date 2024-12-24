@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom'
 export default function Profile() {
   const navigate = useNavigate()
   const {loading, error, data} = useQuery(GET_MY_PROFILE)
-  if(loading) return <h2>Profile is loading</h2>
   if(!localStorage.getItem("token")) {
     navigate("/login")
     return <h1>unauthorized</h1>
   }
+  if(loading) return <h2>Profile is loading</h2>
   if(error) {
     console.log(error.message)
   }

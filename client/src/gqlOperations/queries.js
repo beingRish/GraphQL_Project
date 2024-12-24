@@ -24,3 +24,17 @@ query getMyProfile{
   }
 }
 `
+
+export const GET_USER_BY_ID = gql`
+query getUserById($userid:ID!) {
+  user(_id:$userid) {
+    _id
+		firstName
+    lastName
+    email
+    quotes{
+      name
+    }
+  }
+}
+`
