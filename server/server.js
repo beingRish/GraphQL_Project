@@ -1,9 +1,19 @@
-import { ApolloServer } from 'apollo-server';
-import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
+import { 
+    ApolloServerPluginLandingPageGraphQLPlayground,
+    ApolloServerPluginDrainHttpServer,
+    ApolloServerPluginLandingPageDisabled
+} from 'apollo-server-core';
+import { ApolloServer } from 'apollo-server-express';
 import typeDefs from './schemaGQL.js';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+import express from 'express';
+import http from 'http';
+
+const port = process.env.PORT || 4000;
+const app = express();
+const httpServer = http.createServer(app);
 
 if(process.env.NODE_ENV !=="production") {
     dotenv.config()
@@ -42,13 +52,23 @@ const server = new ApolloServer({
     resolvers,
     context,
     plugins: [
-        ApolloServerPluginLandingPageGraphQLPlayground
+        ApolloServerPluginDrainHttpServer({ httpServer }),
+        process.env.NODE_ENV !=="production" ? 
+        ApolloServerPluginLandingPageGraphQLPlayground() :
+        ApolloServerPluginLandingPageDisabled()
     ]
 })
 
-server.listen().then(({ url }) => {
-    console.log(`
-        🚀  Server is running
-        📭  at ${url}
-    `);
+app.get("/", (req, res) => {
+    res.send("boom!!!")
+})
+
+await server.start();
+server.applyMiddleware({
+    app,
+    path:'/graphql'
+});
+
+httpServer.listen({ port }, () => {
+    console.log(`🚀  Server is running📭  at 4000 ${server.graphqlPath}`);
 });
